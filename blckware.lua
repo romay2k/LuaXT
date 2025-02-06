@@ -6,11 +6,16 @@ local Window = Library:Window({
 })
 
 local TabSection = Window:TabSection({
-    text = "Options"
+    text = "Functions"
 })
 
 local Tab = TabSection:Tab({
     text = "Visual",
+    icon = "rbxassetid://7999345313",
+})
+
+local Tab = TabSection:Tab({
+    text2 = "Aimbot",
     icon = "rbxassetid://7999345313",
 })
 
