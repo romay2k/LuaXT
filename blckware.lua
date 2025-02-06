@@ -2,20 +2,20 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ghost
 -- Toggle UI: Library:Toggle()
 
 local Window = Library:Window({
-    text = "Window"
+    text = "NEVERLOSE"
 })
 
 local TabSection = Window:TabSection({
-    text = "TabSection"
+    text = "Options"
 })
 
 local Tab = TabSection:Tab({
-    text = "Tab",
+    text = "Visual",
     icon = "rbxassetid://7999345313",
 })
 
 local Section = Tab:Section({
-    text = "Section"
+    text = "Visuals"
 })
 
 Section:Button({
@@ -26,7 +26,7 @@ Section:Button({
 })
 
 Section:Toggle({
-    text = "Toggle",
+    text = "ESP",
     state = false, -- Default boolean
     callback = function(boolean)
         print("Toggle current: ",boolean)
@@ -34,7 +34,7 @@ Section:Toggle({
 })
 
 Section:Slider({
-    text = "Slider",
+    text = "Smooth",
     min = 10,
     max = 100,
     -- [[Float = 0,]] Idk what it does
@@ -44,16 +44,16 @@ Section:Slider({
 })
 
 Section:Dropdown({
-    text = "Dropdown",
-    list = {"Apple", "Banana","Coconut"},
-    default = "Apple",
+    text = "ESP Type",
+    list = {"Box", "Name","Line","Weapon"},
+    default = "Box",
     callback = function(String)
         print(String)
     end
 })
 
 Section:Textbox({
-    text = "Textbox",
+    text = "Load Config ID",
     value = "Default",
     callback = function(String)
         print(String)
@@ -61,7 +61,7 @@ Section:Textbox({
 })
 
 Section:Colorpicker({
-    text = "Colorpicker",
+    text = "Color",
     color = Color3.new(1,1,1),
     callback = function(HSV)
         print(HSV)
