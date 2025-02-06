@@ -6,13 +6,86 @@ local player = game:GetService("Players").LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:FindFirstChildOfClass("Humanoid")
 
- local espTab = Window:CreateTab("ESP", nil)
- local espSection = espTab:CreateSection("Main")
+--thirdperson
+local camera = game.Workspace.CurrentCamera
+camera.CameraType = Enum.CameraType.Scriptable -- Permite manipular a câmera manualmente
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    camera.CFrame = CFrame.new(humanoidRootPart.Position + Vector3.new(0, 5, 10), humanoidRootPart.Position)
+end)
+
+--Spinbot
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = char:FindFirstChild("HumanoidRootPart")
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if humanoidRootPart then
+        -- Faz o personagem girar e olhar para baixo
+        humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.Angles(0, math.rad(45), math.rad(-90))
+    end
+end)
 
 
+--Aimbot
+function getClosestPlayer()
+    local closest, distance = nil, math.huge
+    for _, plr in pairs(game.Players:GetPlayers()) do
+        if plr ~= player and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local mag = (plr.Character.HumanoidRootPart.Position - humanoidRootPart.Position).magnitude
+            if mag < distance then
+                distance = mag
+                closest = plr.Character.HumanoidRootPart
+            end
+        end
+    end
+    return closest
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    local target = getClosestPlayer()
+    if target then
+        humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position, target.Position)
+    end
+end)
+
+--My ESP
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+function createESP(player)
+    if player ~= LocalPlayer then
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            local box = Instance.new("BoxHandleAdornment")
+            box.Adornee = char.HumanoidRootPart
+            box.Size = Vector3.new(4, 6, 4) -- Tamanho do ESP
+            box.Color3 = Color3.fromRGB(255, 0, 0) -- Vermelho
+            box.AlwaysOnTop = true
+            box.ZIndex = 10
+            box.Transparency = 0.5
+            box.Parent = game.Workspace
+        end
+    end
+end
+
+-- Adiciona ESP a jogadores existentes
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+        createESP(player)
+    end
+end
+
+-- Adiciona ESP para novos jogadores
+Players.PlayerAdded:Connect(createESP)
+
+
+
+--Esp pasted
+local espTab = Window:CreateTab("ESP", nil)
+local espSection = espTab:CreateSection("Main")
 local ESPEnabled = false
-
-
 local ESP = nil
 local ESPScriptUrl = "https://raw.githubusercontent.com/linemaster2/esp-library/main/library.lua"
 
