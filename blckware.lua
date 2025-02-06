@@ -19,7 +19,7 @@ local Section = Tab:Section({
 })
 
 Section:Button({
-    text = "Button",
+    text = "Master Switch",
     callback = function()
         print("Clicked button")
     end,
