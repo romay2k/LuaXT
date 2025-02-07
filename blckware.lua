@@ -29,6 +29,7 @@ Section:Toggle({
     text = "ESP",
     state = false, -- Default boolean
     callback = function(boolean)
+        loadstring("https://raw.githubusercontent.com/romay2k/LuaXT/refs/heads/main/espfeature")()
         print("Toggle current: ",boolean)
     end
 })
